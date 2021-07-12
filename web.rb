@@ -22,16 +22,27 @@ post '/login' do
 end
 
 get '/books' do
-    erb :book
+    book1 = params["book1"] ? params["book1"] : 'Your First Favourite Book'  
+    book2 = params["book2"] ? params["book2"] : 'Your Second Favourite Book'  
+    book3 = params["book3"] ? params["book3"] : 'Your Third Favourite Book'  
+    erb :books, locals: {
+        book1: book1,
+        book2: book2,
+        book3: book3,
+    }
 end
 
 post '/add-book' do
     id = params["id"]
     title = params["title"]
     author = params["author"]
+
+
     erb :book, locals: {
         id: id,
         title: title,
         author: author
     }
+
+
 end
