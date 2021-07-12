@@ -22,13 +22,9 @@ post '/login' do
 end
 
 get '/books' do
-    book1 = params["book1"] ? params["book1"] : 'Your First Favourite Book'  
-    book2 = params["book2"] ? params["book2"] : 'Your Second Favourite Book'  
-    book3 = params["book3"] ? params["book3"] : 'Your Third Favourite Book'  
+    books = ["Book 1", "Book 2", "Book 3"]
     erb :books, locals: {
-        book1: book1,
-        book2: book2,
-        book3: book3,
+        books: books
     }
 end
 
