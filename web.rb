@@ -20,3 +20,18 @@ post '/login' do
         redirect '/login'
     end
 end
+
+get '/books' do
+    erb :book
+end
+
+post '/add-book' do
+    id = params["id"]
+    title = params["title"]
+    author = params["author"]
+    erb :book, locals: {
+        id: id,
+        title: title,
+        author: author
+    }
+end
