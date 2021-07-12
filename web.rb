@@ -9,7 +9,11 @@ get '/messages' do
     }
 end 
 
-post 'login' do
+get '/login' do
+    erb :login
+end
+
+post '/login' do
     if params['username'] == 'admin' && params['password'] == 'admin'
         return 'Logged in!'
     else
