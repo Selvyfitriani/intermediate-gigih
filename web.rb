@@ -28,17 +28,11 @@ get '/books' do
     }
 end
 
-post '/add-book' do
-    id = params["id"]
-    title = params["title"]
-    author = params["author"]
+get '/books/add' do 
+    erb :book
+end
 
-
-    erb :book, locals: {
-        id: id,
-        title: title,
-        author: author
-    }
-
-
+post '/books/add' do
+    book = params["book"]
+    return "#{book} added"
 end
