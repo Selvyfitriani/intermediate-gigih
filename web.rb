@@ -1,5 +1,5 @@
 require 'sinatra'
 
 get '/messages' do
-    'Hello world'
+    "<h1 style=\"background-color:DodgerBlue;\">Hello world</h1>"
 end 
