@@ -11,6 +11,8 @@ class Player
     def do_attack(other_user)
         other_user.reduce_point(@attack_damage)
         puts "#{@name} attacks #{other_user.name} with #{@attack_damage} damage"
+        puts to_string()
+        puts "\n"
     end
 
     def reduce_point(point)

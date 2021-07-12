@@ -1,16 +1,24 @@
 require_relative "Player"
 
 class Game
+
     def initialize() 
-        @player_list = []
+        @players = []
     end
 
     def add_player(player)
-        @player_list << player
+        @players << player
+    end
+
+    def players_info()
+        @players.each do |player|
+            puts player.to_string()
+            puts "\n"
+        end
     end
     
     def over?
-        @player_list.each {
+        @players.each {
             |player|
             if player.dead? then
                 puts "#{player.name} dies"
