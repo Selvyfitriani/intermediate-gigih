@@ -1,4 +1,5 @@
 require 'mysql2'
+require './category'
 
 def create_db_client
     client = Mysql2::Client.new(
@@ -14,7 +15,15 @@ end
 def get_all_categories
     client = create_db_client()
     get_categories_query = "SELECT * FROM categories"
-    return client.query(get_categories_query)
+    rawData = client.query(get_categories_query)
+
+    categories = Array.new
+    rawData.each do |datum|
+        category = Category.new(datum["id"], datum["name"])
+        categories.push(category)
+    end
+    
+    categories
 end
 
 def get_all_item_with_categories
