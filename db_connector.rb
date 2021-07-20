@@ -1,6 +1,7 @@
 require 'mysql2'
 require './category'
 require './item'
+require 'bigdecimal'
 
 def create_db_client
     client = Mysql2::Client.new(
@@ -39,7 +40,7 @@ def get_all_item_with_categories
     items = Array.new
     rawData.each do |datum|
         category = Category.new(datum["category_id"], datum["category_name"])
-        item = Item.new(datum["id"], datum["name"], datum["price"], category)
+        item = Item.new(datum["id"], datum["name"], BigDecimal(datum["price"]).to_s("F"), category)
         items.push(item)
     end
 
@@ -54,7 +55,7 @@ def get_items_cheaper_than(price)
 
     items = Array.new
     rawData.each do |datum|
-        item = Item.new(datum["id"], datum["name"], datum["price"])
+        item = Item.new(datum["id"], datum["name"], BigDecimal.new(datum["price"]).to_s("F"))
         items.push(item)
     end
 
