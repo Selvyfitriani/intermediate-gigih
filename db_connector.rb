@@ -50,7 +50,15 @@ def get_items_cheaper_than(price)
     client = create_db_client()
     get_items_cheaper_query = "SELECT * FROM items
                               where price < #{price}"
-    return client.query(get_items_cheaper_query)
+    rawData = client.query(get_items_cheaper_query)
+
+    items = Array.new
+    rawData.each do |datum|
+        item = Item.new(datum["id"], datum["name"], datum["price"])
+        items.push(item)
+    end
+
+    items 
 end
 
 def main()
