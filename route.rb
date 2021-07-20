@@ -7,3 +7,15 @@ get '/items' do
         items: items
     }
 end
+
+get '/items/create' do
+    erb :create
+end
+
+post '/items/create' do
+    name = params["name"]
+    price = params["price"]
+    create_new_item(name, price)
+
+    redirect '/items'
+end

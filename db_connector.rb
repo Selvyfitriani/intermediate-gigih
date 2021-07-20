@@ -62,6 +62,13 @@ def get_items_cheaper_than(price)
     items 
 end
 
+def create_new_item(name, price)
+    client = create_db_client()
+    create_item_query = "INSERT INTO items(name, price) values
+                        ('#{name}', #{price})"
+    client.query(create_item_query)
+end
+
 def main()
 
     # print all categories
