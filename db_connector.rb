@@ -13,18 +13,38 @@ end
 
 def get_all_categories
     client = create_db_client()
-    return client.query("SELECT * FROM categories")
+    get_categories_query = "SELECT * FROM categories"
+    return client.query(get_categories_query)
 end
+
+def get_all_item_with_categories
+    client = create_db_client()
+    get_items_query =   "SELECT items.*, categories.name AS 'category_name'
+                        FROM items
+                        LEFT JOIN item_categories ON items.id = item_categories.item_id
+                        LEFT JOIN categories ON item_categories.category_id = categories.id
+                        "
+    return client.query(get_items_query)
+end
+
 
 def main()
 
     # print all categories
+    puts("=================Categories======================")
     categories = get_all_categories()
     categories.each do |category|
         puts(category)
     end
+    puts("\n")
 
-    
+    # print all items with their categories
+    puts("==============Items with Categories==============")
+    items = get_all_item_with_categories()
+    items.each do |item|
+        puts(item)
+    end
+    puts("\n")
 end
 
 main()
