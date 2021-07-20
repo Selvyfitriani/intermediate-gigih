@@ -69,8 +69,18 @@ def create_new_item(name, price)
     client.query(create_item_query)
 end
 
-def main()
+def get_item(id)
+    client = create_db_client()
+    get_item_query = "SELECT * FROM items WHERE id=#{id}"
+    rawData = client.query(get_item_query)
+    item = nil
+    rawData.each do |datum|
+        item = Item.new(datum["id"], datum["name"], BigDecimal(datum["price"]).to_s("F"))
+    end
+    item
+end
 
+def main()
     # print all categories
     puts("=================Categories======================")
     categories = get_all_categories()

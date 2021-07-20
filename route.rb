@@ -19,3 +19,11 @@ post '/items/create' do
 
     redirect '/items'
 end
+
+get '/items/detail' do
+    id = params["id"]
+    item = get_item(id)
+    erb :detail, locals: {
+        item: item
+    }
+end
