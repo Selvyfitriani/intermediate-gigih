@@ -55,7 +55,7 @@ def get_items_cheaper_than(price)
 
     items = Array.new
     rawData.each do |datum|
-        item = Item.new(datum["id"], datum["name"], BigDecimal.new(datum["price"]).to_s("F"))
+        item = Item.new(datum["id"], datum["name"], BigDecimal(datum["price"]).to_s("F"))
         items.push(item)
     end
 
