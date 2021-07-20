@@ -1,0 +1,17 @@
+<table>
+<thead>
+    <tr>
+        <td> Name </td>
+        <td> Price </td>
+    </tr>
+</thead>
+<tbody>
+    <% items.each do |item| %>
+        <tr>
+            <td><%= item.name %></td>
+            <td><%= item.price %></td>
+        </tr>
+    <% end %>
+</tbody>
+
+</table>
