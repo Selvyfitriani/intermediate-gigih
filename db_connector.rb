@@ -80,6 +80,12 @@ def get_item(id)
     item
 end
 
+def delete_item(id)
+    client = create_db_client()
+    delete_item_query = "DELETE FROM items WHERE id=#{id}"
+    client.query(delete_item_query)
+end
+
 def main()
     # print all categories
     puts("=================Categories======================")

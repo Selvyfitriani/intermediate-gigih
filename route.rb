@@ -27,3 +27,10 @@ get '/items/detail' do
         item: item
     }
 end
+
+get '/items/delete' do
+    id = params["id"]
+    delete_item(id)
+    
+    redirect '/items'
+end
