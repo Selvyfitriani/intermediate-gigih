@@ -1,5 +1,6 @@
 require 'sinatra'
 require './db_connector'
+require 'json'
 
 get '/items' do 
     items = get_all_item_with_categories()
@@ -22,9 +23,10 @@ end
 
 get '/items/detail' do
     id = params["id"]
-    item = get_item(id)
+    item = get_item_with_category(id)
     erb :detail, locals: {
-        item: item
+        item: item,
+        category: item.category
     }
 end
 
@@ -33,4 +35,28 @@ get '/items/delete' do
     delete_item(id)
     
     redirect '/items'
+end
+
+get '/items/update' do
+    id = params["id"]
+    item = get_item_with_category(id)
+    categories = get_all_categories()
+    erb :update, locals: {
+        item: item,
+        categories: categories
+    }
+end
+
+post '/items/update' do
+    id = params["id"]
+    name = params["name"]
+    price = params["price"]
+    
+    category_id = nil
+    if category != nil
+        category_id = category.id
+    end  
+    update_item(id, name, price, category_id)
+
+    redirect "/items/detail?id=#{id}"
 end

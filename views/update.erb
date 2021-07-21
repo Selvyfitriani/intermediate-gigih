@@ -1,0 +1,15 @@
+<body>
+    <h1> Update <%= item.name %> </h1>
+    <form method="POST" action="/items/update">
+        <input name="id" type="hidden" value=<%= item.id %> >
+        <input name="name" type="text" value="<%= item.name %>"/>
+        <input name="price" type="text" value="<%= item.price %>"/>
+        <select name="category">
+            <% categories.each do |category| %> 
+                <option value=<%= category %>> <%= category.name %> </option>
+            <% end %>    
+            <option value=""></option>
+        </select>
+        <button type="submit">Update Item</button>
+    </form>
+</body>

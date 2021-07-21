@@ -47,6 +47,7 @@ def get_all_item_with_categories
     items 
 end
 
+
 def get_items_cheaper_than(price)
     client = create_db_client()
     get_items_cheaper_query = "SELECT * FROM items
@@ -60,6 +61,25 @@ def get_items_cheaper_than(price)
     end
 
     items 
+end
+
+def get_item_with_category(item_id)
+    client = create_db_client()
+    get_item_query =   "SELECT items.*, categories.id AS 'category_id', categories.name AS 'category_name'
+                        FROM items
+                        LEFT JOIN item_categories ON items.id = item_categories.item_id
+                        LEFT JOIN categories ON item_categories.category_id = categories.id
+                        WHERE items.id = #{item_id}
+                        "
+    rawData = client.query(get_item_query)
+
+    item = nil
+    rawData.each do |datum|
+        category = Category.new(datum["category_id"], datum["category_name"])
+        item = Item.new(datum["id"], datum["name"], BigDecimal(datum["price"]).to_s("F"), category)
+    end
+
+    item
 end
 
 def create_new_item(name, price)
@@ -84,6 +104,16 @@ def delete_item(id)
     client = create_db_client()
     delete_item_query = "DELETE FROM items WHERE id=#{id}"
     client.query(delete_item_query)
+end
+
+def update_item(id, name, price, category_id)
+    client = create_db_client()
+    update_item_query = "UPDATE items SET name='#{name}', price=#{price} WHERE id=#{id}"
+    update_category_query = "UPDATE item_categories SET category_id=#{category_id} WHERE item_id=#{id}"
+    puts(update_item_query)
+    puts(update_category_query)
+    client.query(update_item_query)
+    client.query(update_category_query)
 end
 
 def main()
@@ -113,5 +143,3 @@ def main()
     puts("\n")
     
 end
-
-main()
