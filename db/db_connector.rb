@@ -1,7 +1,6 @@
 require 'mysql2'
 require './models/category'
 require './models/item'
-require 'bigdecimal'
 
 def create_db_client
     client = Mysql2::Client.new(

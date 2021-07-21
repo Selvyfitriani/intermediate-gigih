@@ -6,7 +6,7 @@ class Category
         @name = name
     end
 
-    def get_all_categories
+    def self.get_all
         client = create_db_client()
         get_categories_query = "SELECT * FROM categories"
         rawData = client.query(get_categories_query)

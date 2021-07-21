@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Item
     attr_accessor :id, :name, :price, :category
 
@@ -8,14 +10,14 @@ class Item
         @category = category
     end
 
-    def self.create_new_item
+    def self.create(name, price)
         client = create_db_client()
         create_item_query = "INSERT INTO items(name, price) values
                             ('#{name}', #{price})"
         client.query(create_item_query)
     end
 
-    def self.get_item(id)
+    def self.get_by_id(id)
         client = create_db_client()
         get_item_query = "SELECT * FROM items WHERE id=#{id}"
         rawData = client.query(get_item_query)
@@ -26,23 +28,21 @@ class Item
         item
     end
 
-    def self.update_item
+    def self.update(id, name, price, category_id)
         client = create_db_client()
         update_item_query = "UPDATE items SET name='#{name}', price=#{price} WHERE id=#{id}"
         update_category_query = "UPDATE item_categories SET category_id=#{category_id} WHERE item_id=#{id}"
-        puts(update_item_query)
-        puts(update_category_query)
-        client.query(update_item_query)
         client.query(update_category_query)
+        client.query(update_item_query)     
     end
     
-    def self.delete_item
+    def self.delete(id)
         client = create_db_client()
         delete_item_query = "DELETE FROM items WHERE id=#{id}"
         client.query(delete_item_query)
     end
     
-    def self.get_all_item_with_categories
+    def self.get_with_categories
         client = create_db_client()
         get_items_query =   "SELECT items.*, categories.id AS 'category_id', categories.name AS 'category_name'
                             FROM items
@@ -61,7 +61,7 @@ class Item
         items 
     end
     
-    def self.get_items_cheaper_than
+    def self.get_cheaper_than(price)
         client = create_db_client()
         get_items_cheaper_query = "SELECT * FROM items
                                   where price < #{price}"
@@ -77,7 +77,7 @@ class Item
     end
     
     
-    def self.get_item_with_category
+    def self.get_with_category(item_id)
         client = create_db_client()
         get_item_query =   "SELECT items.*, categories.id AS 'category_id', categories.name AS 'category_name'
                             FROM items
