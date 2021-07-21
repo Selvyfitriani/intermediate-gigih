@@ -6,7 +6,7 @@
         <input name="price" type="text" value="<%= item.price %>"/>
         <select name="category">
             <% categories.each do |category| %> 
-                <option value=<%= category %>> <%= category.name %> </option>
+                <option value=<%= category.id %>> <%= category.name %> </option>
             <% end %>    
             <option value=""></option>
         </select>

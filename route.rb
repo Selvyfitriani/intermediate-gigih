@@ -51,11 +51,7 @@ post '/items/update' do
     id = params["id"]
     name = params["name"]
     price = params["price"]
-    
-    category_id = nil
-    if category != nil
-        category_id = category.id
-    end  
+    category_id = params["category"]
     update_item(id, name, price, category_id)
 
     redirect "/items/detail?id=#{id}"
