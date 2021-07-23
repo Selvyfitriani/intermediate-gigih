@@ -2,12 +2,11 @@ require 'sinatra'
 require './db/db_connector'
 require 'json'
 require './models/item'
+require './controllers/item_controller'
 
 get '/items' do 
-    items = Item.get_with_categories
-    erb :list_item, locals: {
-        items: items
-    }
+    controller = ItemController.new
+    controller.get_all_items()
 end
 
 get '/items/create' do
