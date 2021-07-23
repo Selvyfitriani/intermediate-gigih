@@ -31,8 +31,23 @@ class Item
     def self.update(id, name, price, category_id)
         client = create_db_client()
         update_item_query = "UPDATE items SET name='#{name}', price=#{price} WHERE id=#{id}"
-        update_category_query = "UPDATE item_categories SET category_id=#{category_id} WHERE item_id=#{id}"
-        client.query(update_category_query)
+
+        select_category_query = "SELECT * FROM item_categories WHERE item_id=#{id}"
+        item_categories = client.query(select_category_query)
+        item_categories.each do |item|
+            puts(item.nil?)
+        end
+
+        if !category_id.nil?
+            puts("ar")
+            update_category_query = "UPDATE item_categories SET category_id=#{category_id} WHERE item_id=#{id}"
+            client.query(update_category_query)
+        else
+            puts("ei")
+            insert_category_query = "INSERT INTO item_categories(item_id, category_id) values (#{id}, #{category_id})"
+            client.query(insert_category_query)
+        end
+
         client.query(update_item_query)     
     end
     

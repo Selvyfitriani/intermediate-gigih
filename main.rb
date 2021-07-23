@@ -1,9 +1,59 @@
 require 'sinatra'
-require './controllers/order_controller.rb'
+require './db/db_connector'
+require 'json'
+require './models/item'
 
-get '/order' do
-    controllers = OrderController.new
-    controllers.find_order(params)
+get '/items' do 
+    items = Item.get_with_categories
+    erb :list_item, locals: {
+        items: items
+    }
 end
 
-post ''
+get '/items/create' do
+    erb :create_item
+end
+
+post '/items/create' do
+    name = params["name"]
+    price = params["price"]
+    Item.create(name, price)
+
+    redirect '/items'
+end
+
+get '/items/detail' do
+    id = params["id"]
+    item = Item.get_with_category(id)
+    erb :detail_item, locals: {
+        item: item,
+        category: item.category
+    }
+end
+
+get '/items/delete' do
+    id = params["id"]
+    Item.delete(id)
+    
+    redirect '/items'
+end
+
+get '/items/update' do
+    id = params["id"]
+    item = Item.get_with_category(id)
+    categories = Category.get_all()
+    erb :update_item, locals: {
+        item: item,
+        categories: categories
+    }
+end
+
+post '/items/update' do
+    id = params["id"]
+    name = params["name"]
+    price = params["price"]
+    category_id = params["category"]
+    Item.update(id, name, price, category_id)
+
+    redirect "/items/detail?id=#{id}"
+end
