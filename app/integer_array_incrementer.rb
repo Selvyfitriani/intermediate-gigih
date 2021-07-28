@@ -1,5 +1,5 @@
 class IntegerArrayIncrementer
     def increment(input)
-        [1]
+        [input[0] + 1]
     end
 end
