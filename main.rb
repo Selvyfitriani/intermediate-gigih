@@ -6,33 +6,27 @@ require './controllers/item_controller'
 
 get '/items' do 
     controller = ItemController.new
-    controller.get_all_items()
+    controller.get_with_categories()
 end
 
 get '/items/create' do
-    erb :create_item
+    controller = ItemController.new
+    controller.show_create_form()
 end
 
 post '/items/create' do
-    name = params["name"]
-    price = params["price"]
-    Item.create(name, price)
-
-    redirect '/items'
+    controller = ItemController.new
+    controller.create_item(params)
 end
 
-get '/items/detail' do
-    id = params["id"]
-    item = Item.get_with_category(id)
-    erb :detail_item, locals: {
-        item: item,
-        category: item.category
-    }
+get '/items/detail/:id' do
+    controller = ItemController.new
+    controller.detail(params)
 end
 
 get '/items/delete' do
-    id = params["id"]
-    Item.delete(id)
+    controller = ItemController.new
+    controller.delete(params)
     
     redirect '/items'
 end

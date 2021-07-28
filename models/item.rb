@@ -10,7 +10,7 @@ class Item
         @category = category
     end
 
-    def self.create(name, price)
+    def save
         client = create_db_client()
         create_item_query = "INSERT INTO items(name, price) values
                             ('#{name}', #{price})"
