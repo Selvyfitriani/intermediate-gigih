@@ -38,5 +38,13 @@ RSpec.describe IntegerArrayIncrementer do
             actual_output = @incrementer.increment(input)
             expect(actual_output).to eq(expected_output)
         end
+
+        it 'should return [2, 0] when input is [1, 9]' do
+            input = [1, 9]
+            expected_output = [2, 0]
+
+            actual_output = @incrementer.increment(input)
+            expect(actual_output).to eq(expected_output)
+        end
     end
 end

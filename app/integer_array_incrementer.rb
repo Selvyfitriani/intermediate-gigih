@@ -10,7 +10,12 @@ class IntegerArrayIncrementer
             end
         else 
             output = input
-            output[-1] = incremented
+            if incremented < 9
+                output[-1] = incremented
+            else 
+                output[-1] = 0
+                output[0] += 1
+            end
         end
         return output
     end
