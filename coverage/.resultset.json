@@ -1,0 +1,28 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/home/selvy/Documents/gigih/intermediate-gigih/app/integer_array_incrementer.rb": {
+        "lines": [
+          1,
+          1,
+          4,
+          4,
+          4,
+          3,
+          2,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          4,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1627475079
+  }
+}

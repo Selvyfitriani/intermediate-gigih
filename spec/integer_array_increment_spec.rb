@@ -1,3 +1,4 @@
+require "./test_helper.rb"
 require "./app/integer_array_incrementer.rb"
 
 RSpec.describe IntegerArrayIncrementer do
