@@ -1,21 +1,34 @@
 class IntegerArrayIncrementer
     def increment(input)
-        output = input
-        incremented = input[-1] + 1
-        if input.length == 1
-            if incremented <= 9
-                output[-1] = incremented
-            else
-                output = [1, 0]
-            end
-        else 
-            if incremented <= 9
-                output[-1] = incremented
+        output = []
+
+        incrementer_num = 1
+        max_each_num = 9
+        
+        carry = 0
+        input_reverse = input.reverse()
+        input_reverse.each_with_index do |num, index|
+            incremented = num
+            if index == 0 
+                incremented += incrementer_num
             else 
-                output[-1] = 0
-                output[0] += 1
+                incremented += carry
+            end
+
+            carry = 0
+            if incremented <= max_each_num
+                output[index] = incremented
+            else 
+                output[index] = incremented - max_each_num - incrementer_num
+                carry = incremented % max_each_num 
             end
         end
-        return output
+
+        # handle last carry
+        if carry > 0
+            output << carry
+        end
+
+        return output.reverse()
     end
 end
