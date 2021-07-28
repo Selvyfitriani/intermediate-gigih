@@ -53,6 +53,6 @@ RSpec.describe IntegerArrayIncrementer do
 
             actual_output = @incrementer.increment(input)
             expect(actual_output).to eq(expected_output)
-        end
+        end 
     end
 end
