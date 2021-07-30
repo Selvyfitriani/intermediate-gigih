@@ -37,9 +37,9 @@
         <tr>
             <td><%= item.name %></td>
             <td>Rp. <%= item.price %></td>
-            <td> <a href="/items/detail?id=<%= item.id %>"> Show </a> </td>
-            <td> <a href="/items/update?id=<%= item.id %>"> Update </a> </td>
-            <td> <a href="/items/delete?id=<%= item.id %>"> Delete </a> </td>
+            <td> <a href="/items/detail/<%= item.id %>"> Show </a> </td>
+            <td> <a href="/items/update/<%= item.id %>"> Update </a> </td>
+            <td> <a href="/items/delete/<%= item.id %>"> Delete </a> </td>
         </tr>
     <% end %>
 </tbody>

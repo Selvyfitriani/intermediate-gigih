@@ -6,7 +6,7 @@ require './controllers/item_controller'
 
 get '/items' do 
     controller = ItemController.new
-    controller.get_with_categories()
+    controller.get_all_with_categories
 end
 
 get '/items/create' do
@@ -17,6 +17,8 @@ end
 post '/items/create' do
     controller = ItemController.new
     controller.create_item(params)
+
+    redirect '/items'
 end
 
 get '/items/detail/:id' do
@@ -24,29 +26,21 @@ get '/items/detail/:id' do
     controller.detail(params)
 end
 
-get '/items/delete' do
+get '/items/delete/:id' do
     controller = ItemController.new
     controller.delete(params)
     
     redirect '/items'
 end
 
-get '/items/update' do
-    id = params["id"]
-    item = Item.get_with_category(id)
-    categories = Category.get_all()
-    erb :update_item, locals: {
-        item: item,
-        categories: categories
-    }
+get '/items/update/:id' do
+    controller = ItemController.new
+    controller.show_update_form(params)
 end
 
 post '/items/update' do
-    id = params["id"]
-    name = params["name"]
-    price = params["price"]
-    category_id = params["category"]
-    Item.update(id, name, price, category_id)
+    controller = ItemController.new
+    controller.update(params)
 
-    redirect "/items/detail?id=#{id}"
+    redirect "/items/detail/#{params["id"]}"
 end
