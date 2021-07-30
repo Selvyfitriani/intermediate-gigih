@@ -12,8 +12,8 @@ class Item
 
     def save
         client = create_db_client()
-        create_item_query = "INSERT INTO items(name, price) values
-                            ('#{name}', '#{price}')"
+        create_item_query = "INSERT INTO items(name, price) values " + 
+                            "('#{name}', #{price})"
         client.query(create_item_query)
     end
 
