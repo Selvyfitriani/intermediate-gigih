@@ -3,13 +3,13 @@ require_relative "./../models/item_category"
 require 'bigdecimal'
 
 class Item
-    attr_accessor :id, :name, :price, :categories
+    attr_accessor :id, :name, :price, :categories_id
 
     def initialize(param)
         @id = nil
         @name = param[:name]
         @price = param[:price]
-        @categories = []
+        @categories_id = param[:categories_id]
     end
 
      
@@ -20,10 +20,10 @@ class Item
                             LEFT JOIN item_categories ON items.id = item_categories.item_id
                             LEFT JOIN categories ON item_categories.category_id = categories.id
                             "
-        rawData = client.query(get_items_query)
+        raw_data = client.query(get_items_query)
     
         items = Array.new
-        rawData.each do |datum|
+        raw_data.each do |datum|
             item = parse_from_json(datum)
             items.push(item)
         end
@@ -35,14 +35,23 @@ class Item
         client = create_db_client()
         create_item_query = "INSERT INTO items(name, price) values " + 
                             "('#{name}', #{price})"
-        item = client.query(create_item_query)
-        puts(item)
+        id = get_last_insert_id
+   
+        if categories_id.length > 0
+            categories_id.each do |category_id|
+               ItemCategory.new(id, category_id).save
+            end
+        end
+    end
 
-        # if categories.length > 0
-        #     categories.each do |category|
-        #         item_category = ItemCategory.new()
-        #     end
-        # end
+    def get_last_insert_id
+        client = create_db_client()
+        get_last_id_query = "SELECT MAX(id) as id FROM items"
+        raw_data = client.query(get_last_id_query)
+
+        raw_data.each do |datum|
+            return datum["id"].to_i
+        end    
     end
 
     def self.update(id, name, price, category_id)
@@ -79,7 +88,8 @@ class Item
         item = Item.new({
             id: json["id"],
             name: json["name"],
-            price: BigDecimal(json["price"]).to_s("F"),
+            # price: BigDecimal(json["price"]).to_s("F"),
+            price: json["price"],
             category: category
         })
         
@@ -90,10 +100,10 @@ class Item
         client = create_db_client()
         get_items_cheaper_query = "SELECT * FROM items
                                   where price < #{price}"
-        rawData = client.query(get_items_cheaper_query)
+        raw_data = client.query(get_items_cheaper_query)
     
         items = Array.new
-        rawData.each do |datum|
+        raw_data.each do |datum|
             item = Item.new({
                 id: datum["id"],
                 name: datum["name"],
@@ -115,10 +125,10 @@ class Item
                             LEFT JOIN categories ON item_categories.category_id = categories.id
                             WHERE items.id = #{item_id}
                             "
-        rawData = client.query(get_item_query)
+        raw_data = client.query(get_item_query)
     
         item = nil
-        rawData.each do |datum|
+        raw_data.each do |datum|
             category = Category.new(datum["category_id"], datum["category_name"])
             item = Item.new({
                 id: datum["id"],

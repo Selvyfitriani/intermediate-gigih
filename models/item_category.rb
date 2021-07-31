@@ -10,7 +10,7 @@ class ItemCategory
         client = create_db_client
         client.query(
             "INSERT INTO item_categories(item_id, category_id) " +
-            "values (#{item_id}, #{category_id})"
+            "values (#{@item_id}, #{@category_id})"
         )
     end
 end

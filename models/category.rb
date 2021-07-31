@@ -19,5 +19,18 @@ class Category
         
         categories
     end
+
+    def self.get_ids
+        client = create_db_client
+        
+        rawData = client.query("SELECT id FROM categories")
+
+        ids = Array.new
+        rawData.each do |datum|
+            ids.push(datum["id"])
+        end
+     
+        ids
+    end
 end
 
