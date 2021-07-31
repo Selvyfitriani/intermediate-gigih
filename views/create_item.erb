@@ -4,5 +4,10 @@
         <input name="name" type="text" placeholder="Item name" />
         <input name="price" type="text" placeholder="Item price" />
         <button type="submit">Add Item</button>
+        <br/> <br/>
+        <% categories.each do |category| %> 
+            <input type="checkbox" id=<%= category.id %> name=<%= category.id %> value=<%= category.id %>>
+            <label for=<%= category.id %>> <%= category.name %> </label>
+        <% end %>    
     </form>
 </body>

@@ -1,4 +1,4 @@
-require "./controllers/item_controller.rb"
+require_relative "./controllers/item_controller.rb"
 
 describe 'ItemController' do
     context '#show_create_form' do
