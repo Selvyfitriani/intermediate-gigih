@@ -38,7 +38,14 @@ class Item
         end
     end   
 
+    def self.delete(id)
+        client = create_db_client()
+        delete_item_query = "DELETE FROM items WHERE id=#{id}"
+        client.query(delete_item_query)
+    end
+
     # ongoing
+   
      
     # belum
   
@@ -107,11 +114,7 @@ class Item
         client.query(update_item_query)     
     end
     
-    def delete
-        client = create_db_client()
-        delete_item_query = "DELETE FROM items WHERE id=#{id}"
-        client.query(delete_item_query)
-    end
+  
    
 
     def self.parse_from_json(json)

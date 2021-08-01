@@ -14,6 +14,13 @@ get '/items/detail/:id' do
     controller.detail(params)
 end
 
+get '/items/delete/:id' do
+    controller = ItemController.new
+    controller.delete(params)
+    
+    redirect '/items'
+end
+
 # ongoing
 
 # belum
@@ -31,12 +38,7 @@ post '/items/create' do
 end
 
 
-get '/items/delete/:id' do
-    controller = ItemController.new
-    controller.delete(params)
-    
-    redirect '/items'
-end
+
 
 get '/items/update/:id' do
     controller = ItemController.new

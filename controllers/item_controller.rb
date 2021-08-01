@@ -19,8 +19,13 @@ class ItemController
         rendered = ERB.new(File.read("./views/detail_item.erb"))
         rendered.result(binding)
     end
+
+    def delete(params)    
+        Item.delete(params["id"])
+    end
+    
     # ongoing
-   
+  
 
     # belum
     def show_create_form
@@ -62,7 +67,5 @@ class ItemController
         Item.update(params["id"], params["name"], params["price"], params["category"])
     end
 
-    def delete(params)    
-        Item.delete(params["id"])
-    end
+  
 end
