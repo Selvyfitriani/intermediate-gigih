@@ -6,6 +6,35 @@ class Category
         @name = name
     end
 
+    def self.find_all_by_item_categories(item_categories)
+        client = create_db_client
+        categories = Array.new
+        item_categories.each do |item_category|
+            category = find_by_id(item_category.category_id)
+            categories.push(category)
+        end
+
+        categories
+    end
+
+    def self.find_by_id(id)
+        client = create_db_client
+        raw_data = client.query("SELECT * FROM categories WHERE id=#{id}")
+        raw_data.each do |datum|
+            category = json_parse(datum)
+            return category
+        end
+    end
+
+    def self.json_parse(json)
+        category = Category.new(json["id"], json["name"])
+        category
+    end
+
+    # ongoing
+
+    # belum
+
     def self.get_all
         client = create_db_client()
         get_categories_query = "SELECT * FROM categories"
@@ -42,30 +71,12 @@ class Category
             categories.push(category)
         end
 
-        puts(categories)
         categories
     end
 
-    def self.find_by_id(id)
-        client = create_db_client
-        raw_data = client.query("SELECT * FROM categories WHERE id=#{id}")
-        raw_data.each do |datum|
-            category = Category.new(datum["id"], datum["name"])
-            return category
-        end
-    end
+  
 
-    def self.find_by_item_categories(item_categories)
-        client = create_db_client
-        categories = Array.new
-
-        item_categories.each do |item_category|
-            category = find_by_id(item_category["category_id"])
-            categories.push(category)
-        end
-
-        return categories
-    end
+  
     
 end
 

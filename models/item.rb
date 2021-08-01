@@ -22,12 +22,28 @@ class Item
         end
         items
     end
-    
+
     def self.json_parse(json)
         item = Item.new(json["id"],  nil,  json["name"], BigDecimal(json["price"]).to_s("F"))
         item
     end
 
+    def self.detail(id)
+        client = create_db_client
+        raw_data = client.query("SELECT * FROM items WHERE id=#{id}")
+
+        raw_data.each do |datum|
+            item = json_parse(datum)
+            return item
+        end
+    end   
+
+    # ongoing
+     
+    # belum
+  
+    
+   
     # belum
     def self.get_all_with_categories
         client = create_db_client()
@@ -121,12 +137,7 @@ class Item
         items 
     end
     
-    def self.detail(id)
-        client = create_db_client
-        raw_data = client.query("SELECT * FROM items WHERE id=#{id}")
-        item = json_parse(raw_data)
-        item    
-    end
+   
 
     def self.detail_with_category(item_id)
         client = create_db_client()

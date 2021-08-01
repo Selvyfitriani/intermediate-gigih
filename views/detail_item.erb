@@ -13,7 +13,8 @@
     <h1> Item Detail </h1>
     <h3> Name:  <%= item.name %> </h3>
     <h3> Price: Rp. <%= item.price %> </h3>
-    <% item_categories.each do |item_category| %>
-        <h3> Category: <%= category.name %> </h3>
+    <h3> Category: </h3>
+    <% categories.each do |category| %>
+        <h3> <%= category.name %> </h3>
     <% end %>
 </body>

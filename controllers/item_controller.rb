@@ -10,7 +10,18 @@ class ItemController
         rendered = ERB.new(File.read("./views/list_item.erb"))
         rendered.result(binding)
     end
+
+    def detail(params)
+        item = Item.detail(params["id"])
+        item_categories = ItemCategoryController.find_all_by_item_id(params)
+        categories = CategoryController.find_all_by_item_categories(item_categories)
     
+        rendered = ERB.new(File.read("./views/detail_item.erb"))
+        rendered.result(binding)
+    end
+    # ongoing
+   
+
     # belum
     def show_create_form
         categories = Category.get_all
@@ -38,15 +49,7 @@ class ItemController
         item.save
     end
 
-    def detail(params)
-        item = Item.detail(params["id"])
-        item_categories = ItemCategoryController.find_all_by_item_id(params["id"])
-        categories = CategoryController.find_all_by_item_categories(item_categories)
-      
-        rendered = ERB.new(File.read("./views/detail_item.erb"))
-        rendered.result(binding)
-    end
-
+   
     def show_update_form(params)
         item = Item.detail_with_category(params["id"])
         categories = Category.get_all
