@@ -6,8 +6,10 @@ require_relative './controllers/item_controller'
 
 get '/items' do 
     controller = ItemController.new
-    controller.get_all_with_categories
+    controller.get_all
 end
+
+# belum
 
 get '/items/create' do
     controller = ItemController.new

@@ -1,13 +1,17 @@
+require_relative "./../controllers/item_category_controller"
+require_relative "./../controllers/category_controller"
 require_relative "./../models/item"
 require_relative "./../models/category"
+require_relative "./../models/item_category"
 
 class ItemController
-    def get_all_with_categories
-        items = Item.get_all_with_categories
+    def get_all
+        items = Item.get_all
         rendered = ERB.new(File.read("./views/list_item.erb"))
         rendered.result(binding)
     end
     
+    # belum
     def show_create_form
         categories = Category.get_all
         rendered = ERB.new(File.read("./views/create_item.erb"))
@@ -28,16 +32,16 @@ class ItemController
         item = Item.new({
             name: params["name"],
             price: params["price"],
-            categories_id:item_categories_id
+            categories_id: item_categories_id
         })
 
         item.save
     end
 
-   
     def detail(params)
-        item = Item.detail_with_category(params["id"])
-        category = item.category
+        item = Item.detail(params["id"])
+        item_categories = ItemCategoryController.find_all_by_item_id(params["id"])
+        categories = CategoryController.find_all_by_item_categories(item_categories)
       
         rendered = ERB.new(File.read("./views/detail_item.erb"))
         rendered.result(binding)
