@@ -21,10 +21,6 @@ get '/items/delete/:id' do
     redirect '/items'
 end
 
-# ongoing
-
-# belum
-
 get '/items/create' do
     controller = ItemController.new
     controller.show_create_form
@@ -36,6 +32,14 @@ post '/items/create' do
 
     redirect '/items'
 end
+
+# ongoing
+
+# belum
+
+
+
+
 
 
 

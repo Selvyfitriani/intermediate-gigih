@@ -32,6 +32,18 @@ class Category
     end
 
     # ongoing
+    def self.get_all_id
+        client = create_db_client
+        
+        raw_data = client.query("SELECT id FROM categories")
+
+        all_id = Array.new
+        raw_data.each do |datum|
+            all_id.push(datum["id"].to_i)
+        end
+     
+        all_id
+    end
 
     # belum
 
@@ -49,18 +61,7 @@ class Category
         categories
     end
 
-    def self.get_ids
-        client = create_db_client
-        
-        raw_data = client.query("SELECT id FROM categories")
-
-        ids = Array.new
-        raw_data.each do |datum|
-            ids.push(datum["id"])
-        end
-     
-        ids
-    end
+   
 
     def self.get_by_ids(ids)
         client = create_db_client

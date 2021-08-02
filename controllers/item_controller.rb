@@ -23,11 +23,7 @@ class ItemController
     def delete(params)    
         Item.delete(params["id"])
     end
-    
-    # ongoing
-  
 
-    # belum
     def show_create_form
         categories = Category.get_all
         rendered = ERB.new(File.read("./views/create_item.erb"))
@@ -35,25 +31,23 @@ class ItemController
     end
 
     def create_item(params)
-        all_categories_id = Category.get_ids
-        item_categories_id = Array.new
-     
-        params.each_key do |key| 
-            id = key.to_i
-            if all_categories_id.include?(id) && id > 0
-                item_categories_id.push(id)
-            end 
-        end
- 
-        item = Item.new({
-            name: params["name"],
-            price: params["price"],
-            categories_id: item_categories_id
-        })
-
+        item = Item.new(name=params["name"], price=params["price"])
         item.save
-    end
 
+        # save item categories that corresponding to the sitem
+        item_id = Item.get_last_insert_id
+        ItemCategoryController.save_item_categories(item_id, params)
+    end
+    
+    # ongoing
+   
+
+  
+
+    # belum
+   
+
+  
    
     def show_update_form(params)
         item = Item.detail_with_category(params["id"])

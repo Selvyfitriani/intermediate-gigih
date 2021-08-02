@@ -5,7 +5,18 @@ class ItemCategoryController
         item_categories = ItemCategory.find_all_by_item_id(params["id"])
         item_categories
     end
-    # ongoing
 
+    def self.save_item_categories(item_id, params)
+        categories_id = Array.new
+        params.each_key do |key|
+            category_id = key.to_i
+            if category_id > 0
+                categories_id.push(category_id)
+            end
+        end
+        ItemCategory.save_item_categories(item_id, categories_id)
+    end
+    # ongoing
+   
     # belum
 end

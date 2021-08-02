@@ -28,10 +28,13 @@ class ItemCategory
         item_category
     end
 
-
-    # ongoing
-   
-    # belum
+    def self.save_item_categories(item_id, categories_id)
+        categories_id.each do |category_id|
+            item_category = ItemCategory.new(item_id, category_id)
+            item_category.save
+        end
+    end
+    
     def save
         client = create_db_client
         client.query(
@@ -39,6 +42,12 @@ class ItemCategory
             "values (#{@item_id}, #{@category_id})"
         )
     end
+    
+
+
+    # ongoing
+    # belum
+    
 
    
 end

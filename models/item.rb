@@ -44,7 +44,26 @@ class Item
         client.query(delete_item_query)
     end
 
+    def save
+        client = create_db_client()
+        create_item_query = "INSERT INTO items(name, price) values " + 
+                            "('#{name}', #{price})"
+        client.query(create_item_query)
+    end
+
+    def self.get_last_insert_id
+        client = create_db_client()
+        get_last_id_query = "SELECT MAX(id) as id FROM items"
+        raw_data = client.query(get_last_id_query)
+
+        raw_data.each do |datum|
+            return datum["id"].to_i
+        end    
+    end
+
     # ongoing
+    
+
    
      
     # belum
@@ -69,28 +88,8 @@ class Item
         items 
     end
 
-    def save
-        client = create_db_client()
-        create_item_query = "INSERT INTO items(name, price) values " + 
-                            "('#{name}', #{price})"
-        id = get_last_insert_id
    
-        if categories_id.length > 0
-            categories_id.each do |category_id|
-               ItemCategory.new(id, category_id).save
-            end
-        end
-    end
-
-    def get_last_insert_id
-        client = create_db_client()
-        get_last_id_query = "SELECT MAX(id) as id FROM items"
-        raw_data = client.query(get_last_id_query)
-
-        raw_data.each do |datum|
-            return datum["id"].to_i
-        end    
-    end
+    
 
     def self.update(id, name, price, category_id)
         client = create_db_client()
