@@ -38,6 +38,13 @@ get '/items/update/:id' do
     controller = ItemController.new
     controller.show_update_form(params)
 end
+
+post '/items/update' do
+    controller = ItemController.new
+    controller.update(params)
+
+    redirect "/items/detail/#{params["id"]}"
+end
 # belum
 
 
@@ -47,10 +54,3 @@ end
 
 
 
-
-post '/items/update' do
-    controller = ItemController.new
-    controller.update(params)
-
-    redirect "/items/detail/#{params["id"]}"
-end

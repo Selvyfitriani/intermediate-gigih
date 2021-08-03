@@ -13,7 +13,7 @@ class ItemController
 
     def detail(params)
         item = Item.detail_with_category(params["id"])
-        categories = item.categories.
+        categories = item.categories
     
         rendered = ERB.new(File.read("./views/detail_item.erb"))
         rendered.result(binding)
@@ -50,7 +50,16 @@ class ItemController
     # belum
     
     def update(params)
-        Item.update(params["id"], params["name"], params["price"], params["category"])
+        categories_id = Array.new
+
+        params.each_key do |key|
+            id = key.to_i
+            if id > 0 
+                categories_id.push(id)
+            end
+        end
+
+        Item.update(params["id"], categories_id, params["name"], params["price"])
     end
 
   

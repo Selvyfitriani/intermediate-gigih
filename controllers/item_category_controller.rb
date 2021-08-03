@@ -21,5 +21,9 @@ class ItemCategoryController
     def self.get_all_category_id_by_item(item_id)
         return ItemCategory.get_all_category_id_by_item(item_id)
     end
+
+    def self.update(item_id, categories_id)
+        ItemCategory.update(item_id, categories_id)
+    end
     # belum
 end

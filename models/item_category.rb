@@ -59,6 +59,17 @@ class ItemCategory
         ids
     end
 
+    def self.update(item_id, categories_id)
+        # delete all categories id related to item id
+        client = create_db_client
+        client.query("DELETE FROM item_categories where item_id=#{item_id}")
+
+        # insert all categories id related to item id
+        categories_id.each do |category_id|
+            client.query("INSERT INTO item_categories(item_id, category_id) values (#{item_id}, #{category_id})")
+        end
+    end
+
     # belum
     
 
