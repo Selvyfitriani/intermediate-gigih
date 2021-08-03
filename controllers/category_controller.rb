@@ -6,6 +6,11 @@ class CategoryController
         categories
     end
 
+    def self.get_all_id()
+        all_id = Category.get_all_id()
+        all_id
+    end
+
     def get_all()
         categories = Category.get_all
         
@@ -13,8 +18,13 @@ class CategoryController
         rendered.result(binding)
     end
 
-    def self.get_all_id()
-        all_id = Category.get_all_id()
-        all_id
+    def show_create_form
+        rendered = ERB.new(File.read("./views/create_category.erb"))
+        rendered.result(binding)
+    end
+
+    def create_category(params)
+        category = Category.new(params["name"])
+        category.save
     end
 end

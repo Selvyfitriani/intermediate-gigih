@@ -53,3 +53,15 @@ get '/categories' do
     controller = CategoryController.new
     controller.get_all
 end
+
+get '/categories/create' do
+    controller = CategoryController.new
+    controller.show_create_form
+end
+
+post '/categories/create' do
+    controller = CategoryController.new
+    controller.create_category(params)
+
+    redirect '/categories'
+end

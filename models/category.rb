@@ -1,7 +1,7 @@
 class Category
     attr_accessor :id, :name
 
-    def initialize(id, name)
+    def initialize(id=nil, name)
         @id = id
         @name = name
     end
@@ -56,5 +56,10 @@ class Category
         end
         
         categories
+    end
+
+    def save
+        client = create_db_client
+        client.query("INSERT INTO categories(name) values ('#{name}')")
     end
 end
