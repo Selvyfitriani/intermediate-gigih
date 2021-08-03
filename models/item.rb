@@ -62,7 +62,33 @@ class Item
     end
 
     # ongoing
+    def self.detail_with_category(item_id)
+        client = create_db_client()
+        get_item_query =   "SELECT items.*, categories.id AS 'category_id', categories.name AS 'category_name'
+                            FROM items
+                            LEFT JOIN item_categories ON items.id = item_categories.item_id
+                            LEFT JOIN categories ON item_categories.category_id = categories.id
+                            WHERE items.id = #{item_id}
+                            "
+        raw_data = client.query(get_item_query)
     
+        categories = Array.new
+
+        raw_data.each do |datum|
+            category = Category.new(datum["category_id"], datum["category_name"])
+            categories.push(category)
+        end
+
+        # iterate once again to get id, name, and price
+        raw_data.each do |datum|
+            item = Item.new(datum["id"],  categories,  datum["name"], BigDecimal(datum["price"]).to_s("F"))
+            return item
+        end
+    end
+    
+    def get_categories_id(item_id)
+        
+    end
 
    
      
@@ -141,22 +167,5 @@ class Item
     
    
 
-    def self.detail_with_category(item_id)
-        client = create_db_client()
-        get_item_query =   "SELECT items.*, categories.id AS 'category_id', categories.name AS 'category_name'
-                            FROM items
-                            LEFT JOIN item_categories ON items.id = item_categories.item_id
-                            LEFT JOIN categories ON item_categories.category_id = categories.id
-                            WHERE items.id = #{item_id}
-                            "
-        raw_data = client.query(get_item_query)
-    
-        item = nil
-        raw_data.each do |datum|
-            category = Category.new(datum["category_id"], datum["category_name"])
-            item = Item.new(json["id"],  category,  json["name"], BigDecimal(json["price"]).to_s("F"))
-        end
-    
-        item
-    end
+   
 end

@@ -18,5 +18,8 @@ class ItemCategoryController
     end
     # ongoing
    
+    def self.get_all_category_id_by_item(item_id)
+        return ItemCategory.get_all_category_id_by_item(item_id)
+    end
     # belum
 end

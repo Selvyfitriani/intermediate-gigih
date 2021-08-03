@@ -4,11 +4,15 @@
         <input name="id" type="hidden" value=<%= item.id %> >
         <input name="name" type="text" value="<%= item.name %>"/>
         <input name="price" type="text" value="<%= item.price %>"/>
-        <select name="category">
-            <% categories.each do |category| %> 
-                <option value=<%= category.id %>> <%= category.name %> </option>
-            <% end %>    
-        </select>
         <button type="submit">Update Item</button>
+        <br/> <br/>
+        <% all_categories.each do |category| %> 
+            <% if item_categories_id.include? category.id %>
+                <input type="checkbox" id=<%= category.id %> name=<%= category.id %> value=<%= category.id %> checked>
+            <% else %>
+              <input type="checkbox" id=<%= category.id %> name=<%= category.id %> value=<%= category.id %> >
+            <% end %>
+            <label for=<%= category.id %>> <%= category.name %> </label>
+        <% end %> 
     </form>
 </body>

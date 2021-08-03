@@ -12,9 +12,8 @@ class ItemController
     end
 
     def detail(params)
-        item = Item.detail(params["id"])
-        item_categories = ItemCategoryController.find_all_by_item_id(params)
-        categories = CategoryController.find_all_by_item_categories(item_categories)
+        item = Item.detail_with_category(params["id"])
+        categories = item.categories.
     
         rendered = ERB.new(File.read("./views/detail_item.erb"))
         rendered.result(binding)
@@ -40,23 +39,16 @@ class ItemController
     end
     
     # ongoing
-   
-
-  
-
-    # belum
-   
-
-  
-   
     def show_update_form(params)
         item = Item.detail_with_category(params["id"])
-        categories = Category.get_all
+        item_categories_id = ItemCategoryController.get_all_category_id_by_item(params["id"])
+        all_categories = Category.get_all
 
         rendered = ERB.new(File.read("./views/update_item.erb"))
         rendered.result(binding)
     end
-
+    # belum
+    
     def update(params)
         Item.update(params["id"], params["name"], params["price"], params["category"])
     end

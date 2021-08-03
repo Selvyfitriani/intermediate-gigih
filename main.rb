@@ -34,7 +34,10 @@ post '/items/create' do
 end
 
 # ongoing
-
+get '/items/update/:id' do
+    controller = ItemController.new
+    controller.show_update_form(params)
+end
 # belum
 
 
@@ -44,10 +47,6 @@ end
 
 
 
-get '/items/update/:id' do
-    controller = ItemController.new
-    controller.show_update_form(params)
-end
 
 post '/items/update' do
     controller = ItemController.new

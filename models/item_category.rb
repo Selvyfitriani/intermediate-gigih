@@ -46,6 +46,19 @@ class ItemCategory
 
 
     # ongoing
+    def self.get_all_category_id_by_item(item_id)
+        client = create_db_client 
+        raw_data = client.query("SELECT category_id FROM item_categories WHERE item_id=#{item_id}")
+
+        ids = Array.new
+        raw_data.each do |datum|
+            id = datum["category_id"].to_i
+            ids.push(id)
+        end
+
+        ids
+    end
+
     # belum
     
 
