@@ -3,7 +3,10 @@ require 'json'
 require_relative './db/db_connector'
 require_relative './models/item'
 require_relative './controllers/item_controller'
+require_relative './controllers/category_controller'
 
+
+# items routing
 get '/items' do 
     controller = ItemController.new
     controller.get_all
@@ -43,4 +46,10 @@ post '/items/update' do
     controller.update(params)
 
     redirect "/items/detail/#{params["id"]}"
+end
+
+# categories routing
+get '/categories' do
+    controller = CategoryController.new
+    controller.get_all
 end

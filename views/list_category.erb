@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    table {
+        border-collapse: collapse; 
+        border:1px solid #000000;
+        font-size: 20px;
+        font-family: 'Helvetica'
+    } 
+    table td{
+        border:1px solid #000000;
+        padding:5px;
+    }
+    table thead tr td{
+        border:1px solid #000000;
+        background-color: 	#53aff4;
+        padding:5px;
+    }
+</style>
+</head>
+<body>
+
+<h1> List of Category </h1>
+<table>
+<thead>
+    <tr>
+        <td> Name </td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+</thead>
+<tbody>
+    <% categories.each do |category| %>
+        <tr>
+            <td><%= category.name %></td>
+            <td> <a href="/categories/detail/<%= category.id %>"> Show </a> </td>
+            <td> <a href="/categories/update/<%= category.id %>"> Update </a> </td>
+            <td> <a href="/categories/delete/<%= category.id %>"> Delete </a> </td>
+        </tr>
+    <% end %>
+</tbody>
+</table>
+<br/> 
+<a href="/categories/create" style="font-size: 30px">New Category</a>
