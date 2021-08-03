@@ -38,7 +38,6 @@ class ItemController
         ItemCategoryController.save_item_categories(item_id, params)
     end
     
-    # ongoing
     def show_update_form(params)
         item = Item.detail_with_category(params["id"])
         item_categories_id = ItemCategoryController.get_all_category_id_by_item(params["id"])
@@ -47,7 +46,6 @@ class ItemController
         rendered = ERB.new(File.read("./views/update_item.erb"))
         rendered.result(binding)
     end
-    # belum
     
     def update(params)
         categories_id = Array.new
@@ -60,7 +58,5 @@ class ItemController
         end
 
         Item.update(params["id"], categories_id, params["name"], params["price"])
-    end
-
-  
+    end 
 end

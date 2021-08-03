@@ -31,7 +31,6 @@ class Category
         category
     end
 
-    # ongoing
     def self.get_all_id
         client = create_db_client
         
@@ -44,8 +43,6 @@ class Category
      
         all_id
     end
-
-    # belum
 
     def self.get_all
         client = create_db_client()
@@ -60,24 +57,4 @@ class Category
         
         categories
     end
-
-   
-
-    def self.get_by_ids(ids)
-        client = create_db_client
-        categories = Array.new
-
-        ids.each do |id|
-            category = find_by_id(id)
-            categories.push(category)
-        end
-
-        categories
-    end
-
-  
-
-  
-    
 end
-

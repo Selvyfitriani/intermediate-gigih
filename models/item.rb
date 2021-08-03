@@ -62,7 +62,6 @@ class Item
         end    
     end
 
-    # ongoing
     def self.detail_with_category(item_id)
         client = create_db_client()
         get_item_query =   "SELECT items.*, categories.id AS 'category_id', categories.name AS 'category_name'
@@ -95,63 +94,4 @@ class Item
         # update all item categories related to item
         ItemCategoryController.update(id, categories_id)
     end
-
-
-   
-     
-    # belum
-  
-    
-   
-    # belum
-    def self.get_all_with_categories
-        client = create_db_client()
-        get_items_query =   "SELECT items.*, categories.id AS 'category_id', categories.name AS 'category_name'
-                            FROM items
-                            LEFT JOIN item_categories ON items.id = item_categories.item_id
-                            LEFT JOIN categories ON item_categories.category_id = categories.id
-                            "
-        raw_data = client.query(get_items_query)
-        items = Array.new
-        raw_data.each do |datum|
-            item = parse_from_json(datum)
-            items.push(item)
-        end
-    
-        items 
-    end
-
-   
-    
-
-    
-  
-   
-
-    def self.parse_from_json(json)
-        category = Category.new(json["category_id"], json["category_name"])
-        puts(json)
-        item = Item.new(json["id"],  category,  json["name"], BigDecimal(json["price"]).to_s("F"))
-        
-        item
-    end
-
-    def self.get_cheaper_than(price)
-        client = create_db_client()
-        get_items_cheaper_query = "SELECT * FROM items
-                                  where price < #{price}"
-        raw_data = client.query(get_items_cheaper_query)
-    
-        items = Array.new
-        raw_data.each do |datum|
-            item = Item.new(json["id"],  category,  json["name"], BigDecimal(json["price"]).to_s("F"))
-            items.push(item)
-        end
-    
-        items 
-    end
-    
-   
-
-   
 end

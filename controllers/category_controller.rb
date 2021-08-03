@@ -5,11 +5,9 @@ class CategoryController
         categories = Category.find_all_by_item_categories(item_categories)
         categories
     end
-    # ongoing
+
     def self.get_all_id()
         all_id = Category.get_all_id()
         all_id
     end
-    
-    #  belum
 end

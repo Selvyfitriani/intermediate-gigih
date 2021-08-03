@@ -33,7 +33,6 @@ post '/items/create' do
     redirect '/items'
 end
 
-# ongoing
 get '/items/update/:id' do
     controller = ItemController.new
     controller.show_update_form(params)
@@ -45,12 +44,3 @@ post '/items/update' do
 
     redirect "/items/detail/#{params["id"]}"
 end
-# belum
-
-
-
-
-
-
-
-

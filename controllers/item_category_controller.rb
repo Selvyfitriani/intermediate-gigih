@@ -16,7 +16,6 @@ class ItemCategoryController
         end
         ItemCategory.save_item_categories(item_id, categories_id)
     end
-    # ongoing
    
     def self.get_all_category_id_by_item(item_id)
         return ItemCategory.get_all_category_id_by_item(item_id)
@@ -25,5 +24,4 @@ class ItemCategoryController
     def self.update(item_id, categories_id)
         ItemCategory.update(item_id, categories_id)
     end
-    # belum
 end

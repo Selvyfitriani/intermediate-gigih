@@ -43,9 +43,6 @@ class ItemCategory
         )
     end
     
-
-
-    # ongoing
     def self.get_all_category_id_by_item(item_id)
         client = create_db_client 
         raw_data = client.query("SELECT category_id FROM item_categories WHERE item_id=#{item_id}")
@@ -69,9 +66,4 @@ class ItemCategory
             client.query("INSERT INTO item_categories(item_id, category_id) values (#{item_id}, #{category_id})")
         end
     end
-
-    # belum
-    
-
-   
 end
