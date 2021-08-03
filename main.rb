@@ -65,3 +65,10 @@ post '/categories/create' do
 
     redirect '/categories'
 end
+
+get '/categories/delete/:id' do
+    controller = CategoryController.new
+    controller.delete(params)
+    
+    redirect '/categories'
+end

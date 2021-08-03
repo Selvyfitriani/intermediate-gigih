@@ -62,4 +62,9 @@ class Category
         client = create_db_client
         client.query("INSERT INTO categories(name) values ('#{name}')")
     end
+
+    def self.delete(id)
+        client = create_db_client
+        client.query("DELETE FROM categories WHERE id=#{id}")
+    end
 end

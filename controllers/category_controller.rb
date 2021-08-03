@@ -27,4 +27,8 @@ class CategoryController
         category = Category.new(params["name"])
         category.save
     end
+
+    def delete(params)    
+        Category.delete(params["id"])
+    end
 end
