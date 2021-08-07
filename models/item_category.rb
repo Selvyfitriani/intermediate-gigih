@@ -79,4 +79,9 @@ class ItemCategory
             client.query("INSERT INTO item_categories(item_id, category_id) values (#{item_id}, #{category_id})")
         end
     end
+
+    def self.delete_all_item_categories_by_category(category_id)
+        client = create_db_client
+        client.query("DELETE FROM item_categories WHERE category_id=#{category_id}")
+    end
 end

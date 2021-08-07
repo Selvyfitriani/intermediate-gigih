@@ -1,4 +1,5 @@
 require_relative "./../models/category"
+require_relative "./../models/item_category"
 
 class CategoryController
     def self.find_all_by_item_categories(item_categories)
@@ -41,5 +42,8 @@ class CategoryController
 
     def delete(params)    
         Category.delete(params["id"])
+
+        # delete all items belong to this category
+        items_id = ItemCategory.delete_all_item_categories_by_category(params["id"])
     end
 end
