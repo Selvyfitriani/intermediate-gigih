@@ -77,3 +77,15 @@ get '/categories/all-items/:id' do
     controller = ItemCategoryController.new
     items = controller.get_all_item_by_category_id(params["id"])
 end
+
+get '/categories/update/:id' do
+    controller = CategoryController.new
+    controller.show_update_form(params)
+end
+
+post '/categories/update' do
+    controller = CategoryController.new
+    controller.update(params)
+
+    redirect '/categories'
+end

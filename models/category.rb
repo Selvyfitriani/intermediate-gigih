@@ -63,6 +63,11 @@ class Category
         client.query("INSERT INTO categories(name) values ('#{name}')")
     end
 
+    def self.update(id, name)
+        client = create_db_client
+        client.query("UPDATE categories SET name='#{name}' WHERE id=#{id}")
+    end
+
     def self.delete(id)
         client = create_db_client
         client.query("DELETE FROM categories WHERE id=#{id}")

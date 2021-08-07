@@ -28,6 +28,17 @@ class CategoryController
         category.save
     end
 
+    def show_update_form(params)
+        category = Category.find_by_id(params["id"])
+
+        rendered = ERB.new(File.read("./views/update_category.erb"))
+        rendered.result(binding)
+    end
+
+    def update(params)
+        Category.update(params["id"], params["name"])
+    end
+
     def delete(params)    
         Category.delete(params["id"])
     end

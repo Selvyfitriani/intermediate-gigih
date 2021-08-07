@@ -1,0 +1,8 @@
+<body>
+    <h1> Update Category </h1>
+    <form method="POST" action="/categories/update">
+        <input name="id" type="hidden" value=<%= category.id %>>
+        <input name="name" type="text" placeholder="Category name" value=<%= category.name %>>
+        <button type="submit">Update Category</button>
+    </form>
+</body>
