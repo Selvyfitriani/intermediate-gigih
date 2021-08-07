@@ -72,3 +72,8 @@ get '/categories/delete/:id' do
     
     redirect '/categories'
 end
+
+get '/categories/all-items/:id' do
+    controller = ItemCategoryController.new
+    items = controller.get_all_item_by_category_id(params["id"])
+end

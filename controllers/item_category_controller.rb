@@ -1,3 +1,5 @@
+require_relative "./../controllers/item_controller"
+require_relative "./../models/category"
 require_relative "./../models/item_category"
 
 class ItemCategoryController
@@ -19,6 +21,19 @@ class ItemCategoryController
    
     def self.get_all_category_id_by_item(item_id)
         return ItemCategory.get_all_category_id_by_item(item_id)
+    end
+
+    def get_all_item_by_category_id(category_id)
+        category = Category.find_by_id(category_id)
+        items_id = ItemCategory.get_all_item_id_by_category_id(category_id)
+        items = Array.new
+        items_id.each do |item_id|
+            item = Item.detail(item_id)
+            items.push(item)
+        end
+        
+        rendered = ERB.new(File.read("./views/list_item_by_category.erb"))
+        rendered.result(binding) 
     end
 
     def self.update(item_id, categories_id)

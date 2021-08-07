@@ -32,7 +32,6 @@ class Item
     def self.detail(id)
         client = create_db_client
         raw_data = client.query("SELECT * FROM items WHERE id=#{id}")
-
         raw_data.each do |datum|
             item = json_parse(datum)
             return item
@@ -70,6 +69,7 @@ class Item
                             LEFT JOIN categories ON item_categories.category_id = categories.id
                             WHERE items.id = #{item_id}
                             "
+
         raw_data = client.query(get_item_query)
     
         categories = Array.new

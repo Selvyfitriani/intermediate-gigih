@@ -47,13 +47,26 @@ class ItemCategory
         client = create_db_client 
         raw_data = client.query("SELECT category_id FROM item_categories WHERE item_id=#{item_id}")
 
-        ids = Array.new
+        categories_id = Array.new
         raw_data.each do |datum|
-            id = datum["category_id"].to_i
-            ids.push(id)
+            category_id = datum["category_id"].to_i
+            categories_id.push(category_id)
         end
 
-        ids
+        categories_id
+    end
+
+    def self.get_all_item_id_by_category_id(category_id)
+        client = create_db_client 
+        raw_data = client.query("SELECT item_id FROM item_categories WHERE category_id=#{category_id}")
+
+        items_id = Array.new
+        raw_data.each do |datum|
+            item_id = datum["item_id"].to_i
+            items_id.push(item_id)
+        end
+
+        items_id
     end
 
     def self.update(item_id, categories_id)
