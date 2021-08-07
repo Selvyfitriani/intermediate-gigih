@@ -22,25 +22,29 @@
 <body>
 
 <h1> List of Item based on "<%= category.name %>" Category </h1>
-<table>
-<thead>
-    <tr>
-        <td> Name </td>
-        <td> Price </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-    </tr>
-</thead>
-<tbody>
-    <% items.each do |item| %>
+<% if items.length() == 0 %>
+ <h2> No Item for This Category </h2>
+<% else %>
+    <table>
+    <thead>
         <tr>
-            <td><%= item.name %></td>
-            <td>Rp. <%= item.price %></td>
-            <td> <a href="/items/detail/<%= item.id %>"> Show </a> </td>
-            <td> <a href="/items/update/<%= item.id %>"> Update </a> </td>
-            <td> <a href="/items/delete/<%= item.id %>"> Delete </a> </td>
+            <td> Name </td>
+            <td> Price </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
         </tr>
-    <% end %>
-</tbody>
-</table>
+    </thead>
+    <tbody>
+        <% items.each do |item| %>
+            <tr>
+                <td><%= item.name %></td>
+                <td>Rp. <%= item.price %></td>
+                <td> <a href="/items/detail/<%= item.id %>"> Show </a> </td>
+                <td> <a href="/items/update/<%= item.id %>"> Update </a> </td>
+                <td> <a href="/items/delete/<%= item.id %>"> Delete </a> </td>
+            </tr>
+        <% end %>
+    </tbody>
+    </table>
+<% end %>
