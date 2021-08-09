@@ -4,9 +4,8 @@ python:
 branches:
   only: module-4/session-3
 before_install:
-- openssl aes-256-cbc -K $encrypted_ed5e33c6b3b4_key -iv $encrypted_ed5e33c6b3b4_iv
-  -in id_ed25519.enc -out ~\/.ssh/id_ed25519 -d
-- chmod 400 ~\/.ssh/id_ed25519
+- openssl aes-256-cbc -K $encrypted_ed5e33c6b3b4_key -iv $encrypted_ed5e33c6b3b4_iv -in id_ed25519.enc -out ~/.ssh/id_ed25519 -d
+- chmod 400 ~/.ssh/id_ed25519
 
 install:
 - pip install ansible
