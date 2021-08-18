@@ -1,12 +1,5 @@
 def get_total_net_income(reports)
-    total_net_income = 0
-
-    reports.each do |report|
-        net_income = get_net_income(report)
-        total_net_income = total_net_income + net_income
-    end
-    
-    return total_net_income
+    reports.sum{ |report| get_net_income(report) }
 end
 
 def get_net_income(report)
